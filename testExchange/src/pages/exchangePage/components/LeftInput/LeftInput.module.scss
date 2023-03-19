@@ -1,0 +1,34 @@
+.ExchangePageInputLeft {
+    &Modal{
+        overflow-y: auto;
+        max-height: 200px;
+    }
+    &Btn {
+        display: flex;
+        flex-direction: row;
+    }
+
+    &BtnInput {
+        display: flex;
+        flex-direction: row;
+    }
+    &CoinSelection {
+        display: flex;
+        flex-direction: row;
+        height: 48px;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+    &CoinSelection * {
+        padding-right: 16px;
+    }
+
+    &CoinName {
+        color: #80A2B6;
+    }
+
+    &CoinTicker {
+        text-transform: uppercase;
+    }
+}

@@ -1,0 +1,49 @@
+.ExchangePageInputRigth {
+    &Modal{
+        overflow-y: auto;
+        max-height: 200px;
+    }
+    &Btn {
+        display: flex;
+        flex-direction: row;
+        max-width: 9.375rem;
+        width: 100%;
+        background: #F6F7F8;
+        border: 1px solid #E3EBEF;
+        border-radius: 0px 5px 5px 0px;
+        border-left: 0px;
+    }
+    &IptCoin {
+        max-width: 18.125rem;
+        width: 100%;
+        height: 3.25rem;
+        padding: 0;
+        background: #F6F7F8;
+        border: 1px solid #E3EBEF;
+        border-radius: 5px 0px 0px 5px;
+    }
+
+    &BtnInput {
+        display: flex;
+        flex-direction: row;
+    }
+    &CoinSelection {
+        display: flex;
+        flex-direction: row;
+        height: 48px;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+    &CoinSelection * {
+        padding-right: 16px;
+    }
+
+    &CoinName {
+        color: #80A2B6;
+    }
+
+    &CoinTicker {
+        text-transform: uppercase;
+    }
+}

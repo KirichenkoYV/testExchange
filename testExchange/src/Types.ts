@@ -16,8 +16,13 @@ export type TypeCoin = {
   ticker: string;
 };
 
+export type TypeDefaultCoin = {
+  image: string;
+  ticker: string;
+};
+
 export type TypeExchangeData = {
   firstCoin: string;
   secondCoin: string;
-  exchangeAmout: string;
+  exchangeAmout: string | undefined;
 };
