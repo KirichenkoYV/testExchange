@@ -1,10 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { CoinsState } from "../Types";
+import { CoinsState, TypeExchangeData } from "../Types";
 import * as coinsApi from "../api/apiExchange";
 
 const initialState: CoinsState = {
   availableCoins: undefined,
   error: undefined,
+  minAmount: undefined,
+  resExchange: undefined,
 };
 
 export const getAvailableCoins = createAsyncThunk(
@@ -23,6 +25,16 @@ export const getPairTicketCoins = createAsyncThunk(
   }
 );
 
+export const getExchangeData = createAsyncThunk(
+  "coins/exchange-amount",
+  async (exchangeData: TypeExchangeData) => {
+    const resExchange = await coinsApi.requestEstimatedExchangeAmount(
+      exchangeData
+    );
+    return resExchange;
+  }
+);
+
 export const coinsSlice = createSlice({
   name: "coins",
   initialState,
@@ -34,6 +46,20 @@ export const coinsSlice = createSlice({
         state.availableCoins = availableCoins;
       })
       .addCase(getAvailableCoins.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+      .addCase(getPairTicketCoins.fulfilled, (state, action) => {
+        const minAmount = action.payload;
+        state.minAmount = minAmount;
+      })
+      .addCase(getPairTicketCoins.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+      .addCase(getExchangeData.fulfilled, (state, action) => {
+        const resExchange = action.payload;
+        state.resExchange = resExchange;
+      })
+      .addCase(getExchangeData.rejected, (state, action) => {
         state.error = action.error.message;
       });
   },
