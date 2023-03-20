@@ -1,11 +1,11 @@
-import { TypeCoin, TypeDefaultCoin } from "../../../../Types";
+import { TypeCoin, TypeDefaultCoin } from "../../../../types/Types";
 
 export type TypeProps = {
   allAvailableCoins: TypeCoin[] | undefined;
-  rightInput: string;
+  rigthInput: string;
   setButtonContentRight: (coin: TypeCoin) => void;
   setContentLiRight: (coin: string) => void;
-  setRightInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  setRightInput: (value: string) => void;
   contentLiRight: string;
   buttonContentRight: TypeDefaultCoin;
   setLastActivInput: (option: string) => void;

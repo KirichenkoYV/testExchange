@@ -14,38 +14,36 @@ import style from "./ExchangePage.module.scss";
 function ExchangePage() {
   const dispatch = useAppDispatch();
 
+  const [showErrorMin, setshowErrorMin] = useState<boolean>(false);
+  const [lastActivInput, setLastActivInput] = useState<string>("left");
+  const [addressEth, setAdressEth] = useState<string>("");
+
   const resExchange = useSelector((state: RootState) => state.coin.resExchange);
+  const minAmout = useSelector((state: RootState) => state.coin.minAmount);
   const allAvailableCoins = useSelector(
     (state: RootState) => state.coin.availableCoins
   );
 
-  const [intermediateStateCoins, setIntermediateStateCoins] = useState({});
-  const [intermediateStateValue, setIntermediateStateValue] = useState("");
-
-  const [contentLiLeft, setContentLiLeft] = useState("btc");
-  const [leftInput, setLeftInput] = useState<string | undefined>(
-    "0.01" || resExchange
-  );
+  const [contentLiLeft, setContentLiLeft] = useState<string>("btc");
+  const [leftInput, setLeftInput] = useState<string>("" || resExchange);
   const [buttonContentLeft, setButtonContentLeft] = useState({
     ticker: "btc",
     image: "https://content-api.changenow.io/uploads/btc_d8db07f87d.svg",
   });
-  const [lastActivInput, setLastActivInput] = useState("left");
 
   const [buttonContentRight, setButtonContentRight] = useState({
     ticker: "eth",
     image: "https://content-api.changenow.io/uploads/eth_f4ebb54ec0.svg",
   });
-  const [contentLiRight, setContentLiRight] = useState("eth");
-  const [rigthInput, setRightInput] = useState<string | undefined>(resExchange);
+  const [contentLiRight, setContentLiRight] = useState<string>("eth");
+  const [rigthInput, setRightInput] = useState<string>(resExchange);
 
-  const [addressEth, setAdressEth] = useState<string>("");
+  useEffect(() => {
+    dispatch(getAvailableCoins());
+  }, []);
 
   useEffect(() => {
     if (lastActivInput === "left") {
-      dispatch(getAvailableCoins());
-      const pairCoins = `${contentLiRight}_${contentLiLeft}`;
-      dispatch(getPairTicketCoins(pairCoins));
       const exchangeData = {
         firstCoin: contentLiRight,
         secondCoin: contentLiLeft,
@@ -57,8 +55,8 @@ function ExchangePage() {
   }, [contentLiRight, contentLiLeft, rigthInput, resExchange]);
 
   useEffect(() => {
+    setshowErrorMin(false);
     if (lastActivInput === "rigth") {
-      dispatch(getAvailableCoins());
       const pairCoins = `${contentLiLeft}_${contentLiRight}`;
       dispatch(getPairTicketCoins(pairCoins));
       const exchangeData = {
@@ -67,31 +65,30 @@ function ExchangePage() {
         exchangeAmout: leftInput,
       };
       dispatch(getExchangeData(exchangeData));
-      setRightInput(resExchange);
+      if (leftInput < minAmout) {
+        setRightInput("-");
+        setshowErrorMin(true);
+      } else {
+        setRightInput(resExchange);
+      }
     }
   }, [contentLiRight, contentLiLeft, leftInput, resExchange]);
+
+  useEffect(() => {
+    const pairCoins = `${contentLiLeft}_${contentLiRight}`;
+    dispatch(getPairTicketCoins(pairCoins));
+    setLeftInput(minAmout);
+  }, [contentLiLeft, minAmout]);
 
   function changeAdressEth(event: React.ChangeEvent<HTMLInputElement>): void {
     setAdressEth(event?.target.value);
   }
-
-  // function changeInputCoins() {
-  //   setIntermediateStateValue(leftInput);
-  //   setLeftInput(rigthInput);
-  //   setRightInput(intermediateStateValue);
-
-  //   setIntermediateStateCoins(buttonContentLeft);
-  //   setButtonContentLeft(buttonContentRight);
-  //   setButtonContentRight(intermediateStateCoins);
-  // }
-
   return (
     <div className={style.ExchangePage}>
       <h1 className={style.ExchangePageTitle}>Crypto Exchange</h1>
       <h3 className={style.ExchangePageMotto}>Exchange fast and easy</h3>
-    <div className={style.ExchangePageInputs}>
-        
-      <LeftInput
+      <div className={style.ExchangePageInputs}>
+        <LeftInput
           allAvailableCoins={allAvailableCoins}
           leftInput={leftInput}
           setButtonContentLeft={setButtonContentLeft}
@@ -101,24 +98,31 @@ function ExchangePage() {
           buttonContentLeft={buttonContentLeft}
           setLastActivInput={setLastActivInput}
         />
-      <button
-          className={style.ExchangePageBtnReverse}
-          // onClick={changeInputCoins}
-        >
+        <button className={style.ExchangePageBtnReverse}>
           <img src="swap.svg" alt="reverse" width="20" height="20" />
-      </button>
-      <RigthInput
+        </button>
+        <RigthInput
           setButtonContentRight={setButtonContentRight}
           setContentLiRight={setContentLiRight}
           setRightInput={setRightInput}
-          resExchange={resExchange}
           buttonContentRight={buttonContentRight}
           allAvailableCoins={allAvailableCoins}
           contentLiRight={contentLiRight}
           rigthInput={rigthInput}
           setLastActivInput={setLastActivInput}
         />
-   </div>
+      </div>
+      {showErrorMin ? (
+        <div className={style.ExchangePageError}>
+          {" "}
+          Enter amounts above{" "}
+          <span className={style.ExchangePageTextError}>{minAmout}</span>
+        </div>
+      ) : (
+        <div className={style.ExchangePageError}>
+          <span className={style.ExchangePageTextError}></span>
+        </div>
+      )}
       <div>
         <h3 className={style.ExchangePageTitleAdress}>Your Ethereum address</h3>
         <div className={style.ExchangePageUserAddress}>

@@ -1,5 +1,5 @@
 import { keyAPI } from "../common/common";
-import { TypeExchangeData } from "../Types";
+import { TypeExchangeData } from "../types/Types";
 
 export const requestListOfAvailableCurrencies = async () => {
   const url = "https://api.changenow.io/v1/currencies?active=true";
@@ -28,7 +28,7 @@ export const requestMinimalExchangeAmount = async (pairCoins: string) => {
   if (!res.ok) {
     throw new Error(data.message);
   }
-  return data;
+  return data.minAmount;
 };
 
 export const requestEstimatedExchangeAmount = async (

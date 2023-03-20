@@ -1,8 +1,10 @@
-import { useState } from "react";
-import { TypeCoin } from "../../../../Types";
+import { useEffect, useState } from "react";
+import { TypeCoin } from "../../../../types/Types";
 import { TypeProps } from "./TypesLeftInput";
 
 import style from "./LeftInput.module.scss";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../store/Store";
 
 function LeftInput({
   allAvailableCoins,

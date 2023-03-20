@@ -1,14 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { CoinsState, TypeExchangeData } from "../Types";
+import { CoinsState, TypeExchangeData } from "../types/Types";
 import * as coinsApi from "../api/apiExchange";
 
 const initialState: CoinsState = {
   availableCoins: undefined,
   error: undefined,
-  minAmount: undefined,
-  resExchange: undefined,
+  minAmount: "",
+  resExchange: "",
 };
-
 export const getAvailableCoins = createAsyncThunk(
   "coins/available",
   async () => {
@@ -16,7 +15,6 @@ export const getAvailableCoins = createAsyncThunk(
     return availableCoins;
   }
 );
-
 export const getPairTicketCoins = createAsyncThunk(
   "coins/min-amount",
   async (pairCoins: string) => {
@@ -24,7 +22,6 @@ export const getPairTicketCoins = createAsyncThunk(
     return minAmoutPair;
   }
 );
-
 export const getExchangeData = createAsyncThunk(
   "coins/exchange-amount",
   async (exchangeData: TypeExchangeData) => {
@@ -34,7 +31,6 @@ export const getExchangeData = createAsyncThunk(
     return resExchange;
   }
 );
-
 export const coinsSlice = createSlice({
   name: "coins",
   initialState,

@@ -1,8 +1,8 @@
 export type CoinsState = {
   availableCoins: [] | undefined;
   error: string | undefined;
-  minAmount: number | undefined;
-  resExchange: string | undefined;
+  minAmount: string;
+  resExchange: string;
 };
 
 export type TypeCoin = {

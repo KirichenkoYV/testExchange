@@ -9,7 +9,7 @@
     align-items: center;
 }
 &TitleAdress {
-    padding: 32px 0 8px 0;
+    padding: 2px 0 8px 0;
 }
 &Title{
     font-weight: 300;
@@ -22,6 +22,12 @@
     font-size: 1.25rem;
     color: #282828;
     padding-bottom: 60px;
+}
+&TextError {
+    color: #0095E0;
+}
+&Error {
+    height: 30px;
 }
 &BtnExchange { 
     background-color: #0095E0;
