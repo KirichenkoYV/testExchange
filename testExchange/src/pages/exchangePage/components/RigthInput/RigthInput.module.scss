@@ -1,31 +1,47 @@
 .ExchangePageInputRigth {
+        width: 440px ;
+        border: 1px solid #E3EBEF;
+        border-radius: 5px;
     &Modal{
         overflow-y: auto;
         max-height: 200px;
+        position: absolute;
+        background:#F6F7F8;
+        border-radius: 0px 0px 5px 5px;
+        width: 399px;
+        border: 1px solid #E3EBEF;
+        padding: 15px 20px;
+        margin-top: -3px;
     }
     &Btn {
         display: flex;
-        flex-direction: row;
-        max-width: 9.375rem;
-        width: 100%;
-        background: #F6F7F8;
-        border: 1px solid #E3EBEF;
-        border-radius: 0px 5px 5px 0px;
-        border-left: 0px;
+        justify-content: space-between;
+        align-items: center;
+        width: 150px;
+        border-left: 1px solid #E3EBEF;
+        &Arrow{
+            height: 6px;
+            width: 10px;
+        }
+        &Img{
+            height: 20px;
+            width: 20px;
+            padding-left: 36.5px ;
+        }
     }
-    &IptCoin {
-        max-width: 18.125rem;
-        width: 100%;
-        height: 3.25rem;
-        padding: 0;
+    &IptCoin{
         background: #F6F7F8;
-        border: 1px solid #E3EBEF;
-        border-radius: 5px 0px 0px 5px;
+        border-radius: 5px;
+        width: 290px;
     }
-
     &BtnInput {
         display: flex;
-        flex-direction: row;
+        justify-content: space-between;
+        background: #F6F7F8;
+        height: 30px;
+        border-radius: 5px;
+        padding: 10px 15px;
+        
     }
     &CoinSelection {
         display: flex;
@@ -38,12 +54,36 @@
     &CoinSelection * {
         padding-right: 16px;
     }
-
     &CoinName {
         color: #80A2B6;
     }
-
     &CoinTicker {
         text-transform: uppercase;
+        padding-right: 33px;
     }
+}
+
+@media (max-width: 990px) {
+    .ExchangePageInputRigth {
+       width: 360px;
+      &Modal{
+        width: 319px;
+      }
+      }
+}
+@media (max-width: 900px) {
+    .ExchangePageInputRigth {
+       width: 400px;
+       &Modal{
+        width: 359px;
+      }
+       }
+}
+@media (max-width: 430px) {
+    .ExchangePageInputRigth {
+       width: 326px;
+        &Modal{
+        width: 285px;
+      }
+       }
 }

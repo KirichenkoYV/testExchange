@@ -6,21 +6,26 @@ import {
   getPairTicketCoins,
 } from "../../slice/coinsSlice";
 import { useSelector } from "react-redux";
-
-import style from "./ExchangePage.module.scss";
 import LeftInput from "./components/LeftInput/LeftInput";
 import RigthInput from "./components/RigthInput/RigthInput";
+
+import style from "./ExchangePage.module.scss";
 
 function ExchangePage() {
   const dispatch = useAppDispatch();
 
-  let resExchange = useSelector((state: RootState) => state.coin.resExchange);
+  const resExchange = useSelector((state: RootState) => state.coin.resExchange);
   const allAvailableCoins = useSelector(
     (state: RootState) => state.coin.availableCoins
   );
 
+  const [intermediateStateCoins, setIntermediateStateCoins] = useState({});
+  const [intermediateStateValue, setIntermediateStateValue] = useState("");
+
   const [contentLiLeft, setContentLiLeft] = useState("btc");
-  const [leftInput, setLeftInput] = useState<string>("0.01" || resExchange);
+  const [leftInput, setLeftInput] = useState<string | undefined>(
+    "0.01" || resExchange
+  );
   const [buttonContentLeft, setButtonContentLeft] = useState({
     ticker: "btc",
     image: "https://content-api.changenow.io/uploads/btc_d8db07f87d.svg",
@@ -33,7 +38,6 @@ function ExchangePage() {
   });
   const [contentLiRight, setContentLiRight] = useState("eth");
   const [rigthInput, setRightInput] = useState<string | undefined>(resExchange);
-  console.log(resExchange);
 
   const [addressEth, setAdressEth] = useState<string>("");
 
@@ -49,7 +53,6 @@ function ExchangePage() {
       };
       dispatch(getExchangeData(exchangeData));
       setLeftInput(resExchange);
-      console.log(rigthInput, "rigthInput");
     }
   }, [contentLiRight, contentLiLeft, rigthInput, resExchange]);
 
@@ -63,7 +66,6 @@ function ExchangePage() {
         secondCoin: contentLiRight,
         exchangeAmout: leftInput,
       };
-      console.log(exchangeData);
       dispatch(getExchangeData(exchangeData));
       setRightInput(resExchange);
     }
@@ -73,12 +75,23 @@ function ExchangePage() {
     setAdressEth(event?.target.value);
   }
 
+  // function changeInputCoins() {
+  //   setIntermediateStateValue(leftInput);
+  //   setLeftInput(rigthInput);
+  //   setRightInput(intermediateStateValue);
+
+  //   setIntermediateStateCoins(buttonContentLeft);
+  //   setButtonContentLeft(buttonContentRight);
+  //   setButtonContentRight(intermediateStateCoins);
+  // }
+
   return (
     <div className={style.ExchangePage}>
-      <div className={style.ExchangePageTitle}> Crypto Exchange</div>
-      <div className={style.ExchangePageMotto}>Exchange fast and easy</div>
-      <div className={style.ExchangePageInputs}>
-        <LeftInput
+      <h1 className={style.ExchangePageTitle}>Crypto Exchange</h1>
+      <h3 className={style.ExchangePageMotto}>Exchange fast and easy</h3>
+    <div className={style.ExchangePageInputs}>
+        
+      <LeftInput
           allAvailableCoins={allAvailableCoins}
           leftInput={leftInput}
           setButtonContentLeft={setButtonContentLeft}
@@ -88,12 +101,13 @@ function ExchangePage() {
           buttonContentLeft={buttonContentLeft}
           setLastActivInput={setLastActivInput}
         />
-
-        <button className={style.ExchangePageBtnReverse}>
+      <button
+          className={style.ExchangePageBtnReverse}
+          // onClick={changeInputCoins}
+        >
           <img src="swap.svg" alt="reverse" width="20" height="20" />
-        </button>
-
-        <RigthInput
+      </button>
+      <RigthInput
           setButtonContentRight={setButtonContentRight}
           setContentLiRight={setContentLiRight}
           setRightInput={setRightInput}
@@ -104,9 +118,9 @@ function ExchangePage() {
           rigthInput={rigthInput}
           setLastActivInput={setLastActivInput}
         />
-      </div>
+   </div>
       <div>
-        <div>Your Ethereum address</div>
+        <h3 className={style.ExchangePageTitleAdress}>Your Ethereum address</h3>
         <div className={style.ExchangePageUserAddress}>
           <input
             value={addressEth}
