@@ -1,4 +1,5 @@
 import { keyAPI } from "../common/common";
+import { TypeExchangeData } from "../types/Types";
 
 export const requestListOfAvailableCurrencies = async () => {
   const url = "https://api.changenow.io/v1/currencies?active=true";
@@ -9,15 +10,14 @@ export const requestListOfAvailableCurrencies = async () => {
     },
   });
   const data = await res.json();
-  console.log(data);
   if (!res.ok) {
     throw new Error(data.message);
   }
   return data;
 };
 
-export const requestMinimalExchangeAmount = async () => {
-  const url = `https://api.changenow.io/v1/min-amount/${WhatChange}?api_key=${keyAPI}`;
+export const requestMinimalExchangeAmount = async (pairCoins: string) => {
+  const url = `https://api.changenow.io/v1/min-amount/${pairCoins}?api_key=${keyAPI}`;
   const res = await fetch(url, {
     method: "GET",
     headers: {
@@ -25,15 +25,16 @@ export const requestMinimalExchangeAmount = async () => {
     },
   });
   const data = await res.json();
-  console.log(data);
   if (!res.ok) {
     throw new Error(data.message);
   }
-  return data;
+  return data.minAmount
 };
 
-export const requestEstimatedExchangeAmount = async () => {
-  const url = `https://api.changenow.io/v1/exchange-amount/${summa}/${WhatChange}?api_key=${keyAPI}`;
+export const requestEstimatedExchangeAmount = async (
+  exchangeData: TypeExchangeData
+) => {
+  const url = `https://api.changenow.io/v1/exchange-amount/${exchangeData.exchangeAmout}/${exchangeData.firstCoin}_${exchangeData.secondCoin}?api_key=${keyAPI}`;
   const res = await fetch(url, {
     method: "GET",
     headers: {
@@ -41,9 +42,8 @@ export const requestEstimatedExchangeAmount = async () => {
     },
   });
   const data = await res.json();
-  console.log(data);
   if (!res.ok) {
     throw new Error(data.message);
   }
-  return data;
+  return data.estimatedAmount;
 };
