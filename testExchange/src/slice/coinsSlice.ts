@@ -7,6 +7,7 @@ const initialState: CoinsState = {
   error: undefined,
   minAmount: "",
   resExchange: "",
+  errorPairs: undefined,
 };
 export const getAvailableCoins = createAsyncThunk(
   "coins/available",
@@ -40,6 +41,7 @@ export const coinsSlice = createSlice({
       .addCase(getAvailableCoins.fulfilled, (state, action) => {
         const availableCoins = action.payload;
         state.availableCoins = availableCoins;
+        state.errorPairs = undefined;
       })
       .addCase(getAvailableCoins.rejected, (state, action) => {
         state.error = action.error.message;
@@ -47,13 +49,15 @@ export const coinsSlice = createSlice({
       .addCase(getPairTicketCoins.fulfilled, (state, action) => {
         const minAmount = action.payload;
         state.minAmount = minAmount;
+        state.errorPairs = undefined;
       })
       .addCase(getPairTicketCoins.rejected, (state, action) => {
-        state.error = action.error.message;
+        state.errorPairs = "This pair is disabled now";
       })
       .addCase(getExchangeData.fulfilled, (state, action) => {
         const resExchange = action.payload;
         state.resExchange = resExchange;
+        state.errorPairs = undefined;
       })
       .addCase(getExchangeData.rejected, (state, action) => {
         state.error = action.error.message;

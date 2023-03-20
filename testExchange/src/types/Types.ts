@@ -3,6 +3,7 @@ export type CoinsState = {
   error: string | undefined;
   minAmount: string;
   resExchange: string;
+  errorPairs: string | undefined;
 };
 
 export type TypeCoin = {

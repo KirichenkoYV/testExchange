@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TypeCoin } from "../../../../types/Types";
 import { TypeProps } from "./TypesLeftInput";
 
 import style from "./LeftInput.module.scss";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../store/Store";
 
 function LeftInput({
   allAvailableCoins,
@@ -22,14 +20,12 @@ function LeftInput({
     setButtonContentLeft(coin);
     setContentLiLeft(coin.ticker);
   }
-
   function changeLeftInput(event: React.ChangeEvent<HTMLInputElement>): void {
     setLeftInput(event.target.value);
   }
   function onFocus(): void {
     setLastActivInput("rigth");
   }
-
   function changeShowSelectCoins() {
     setSelectCoins((prev) => !prev);
   }

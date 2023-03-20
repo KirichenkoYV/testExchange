@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { RootState, useAppDispatch } from "../../store/Store";
 import {
   getAvailableCoins,
@@ -15,10 +15,13 @@ function ExchangePage() {
   const dispatch = useAppDispatch();
 
   const [showErrorMin, setshowErrorMin] = useState<boolean>(false);
+  const [showErrorPairs, setshowErrorPairs] = useState<boolean>(false);
   const [lastActivInput, setLastActivInput] = useState<string>("left");
   const [addressEth, setAdressEth] = useState<string>("");
 
   const resExchange = useSelector((state: RootState) => state.coin.resExchange);
+  const error = useSelector((state: RootState) => state.coin.errorPairs);
+
   const minAmout = useSelector((state: RootState) => state.coin.minAmount);
   const allAvailableCoins = useSelector(
     (state: RootState) => state.coin.availableCoins
@@ -56,6 +59,7 @@ function ExchangePage() {
 
   useEffect(() => {
     setshowErrorMin(false);
+    setshowErrorPairs(false);
     if (lastActivInput === "rigth") {
       const pairCoins = `${contentLiLeft}_${contentLiRight}`;
       dispatch(getPairTicketCoins(pairCoins));
@@ -71,8 +75,12 @@ function ExchangePage() {
       } else {
         setRightInput(resExchange);
       }
+      if (error) {
+        setRightInput("-");
+        setshowErrorPairs(true);
+      }
     }
-  }, [contentLiRight, contentLiLeft, leftInput, resExchange]);
+  }, [contentLiRight, contentLiLeft, leftInput, resExchange, error]);
 
   useEffect(() => {
     const pairCoins = `${contentLiLeft}_${contentLiRight}`;
@@ -112,6 +120,15 @@ function ExchangePage() {
           setLastActivInput={setLastActivInput}
         />
       </div>
+      {showErrorPairs ? (
+        <div className={style.ExchangePageError}>
+          <span className={style.ExchangePageTextError}>{error}</span>
+        </div>
+      ) : (
+        <div className={style.ExchangePageError}>
+          <span className={style.ExchangePageTextError}></span>
+        </div>
+      )}
       {showErrorMin ? (
         <div className={style.ExchangePageError}>
           {" "}

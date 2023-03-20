@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useAppDispatch } from "../../../../store/Store";
 import { TypeCoin } from "../../../../types/Types";
 
 import style from "./RigthInput.module.scss";
@@ -16,19 +15,16 @@ function RigthInput({
   setLastActivInput,
 }: TypeProps) {
   const [showSelectCoins, setSelectCoins] = useState(false);
-
   function readContextRight(coin: TypeCoin): void {
     setButtonContentRight(coin);
     setContentLiRight(coin.ticker);
   }
-
   function changeRigthInput(event: React.ChangeEvent<HTMLInputElement>): void {
     setRightInput(event.target.value);
   }
   function onFocus() {
     setLastActivInput("left");
   }
-
   function changeShowSelectCoins() {
     setSelectCoins((prev) => !prev);
   }

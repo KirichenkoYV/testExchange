@@ -28,7 +28,7 @@ export const requestMinimalExchangeAmount = async (pairCoins: string) => {
   if (!res.ok) {
     throw new Error(data.message);
   }
-  return data.minAmount;
+  return data.minAmount
 };
 
 export const requestEstimatedExchangeAmount = async (
