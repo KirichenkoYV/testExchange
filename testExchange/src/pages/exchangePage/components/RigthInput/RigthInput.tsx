@@ -15,6 +15,7 @@ function RigthInput({
   setLastActivInput,
 }: TypeProps) {
   const [showSelectCoins, setSelectCoins] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
   function readContextRight(coin: TypeCoin): void {
     setButtonContentRight(coin);
     setContentLiRight(coin.ticker);
@@ -29,58 +30,107 @@ function RigthInput({
     setSelectCoins((prev) => !prev);
   }
 
+  function closeModal() {
+    setSelectCoins((prev) => !prev);
+  }
+
   return (
-    <div className={style.ExchangePageInputRigth}>
-      <div className={style.ExchangePageInputRigthBtnInput}>
+    <div className={style.ExchangePageInputRight}>
+      <div className={style.ExchangePageInputRightBtnInput}>
         <input
-          className={style.ExchangePageInputRigthIptCoin}
+          className={style.ExchangePageInputRightIptCoin}
           value={rigthInput}
           onChange={changeRigthInput}
           onFocus={onFocus}
         ></input>
         <div
           onClick={changeShowSelectCoins}
-          className={style.ExchangePageInputRigthBtn}
+          className={style.ExchangePageInputRightBtn}
         >
           <img
-            className={style.ExchangePageInputRigthBtnImg}
+            className={style.ExchangePageInputRightBtnImg}
             src={buttonContentRight.image}
           ></img>
-          <span className={style.ExchangePageInputRigthCoinTicker}>
+          <span className={style.ExchangePageInputRightCoinTicker}>
             {buttonContentRight.ticker}
           </span>
           <img
-            className={style.ExchangePageInputRigthBtnArrow}
+            className={style.ExchangePageInputRightBtnArrow}
             src="Vector.svg"
             alt="arrow"
           ></img>
         </div>
       </div>
       {showSelectCoins && (
-        <div className={style.ExchangePageInputRigthModal}>
+        <div className={style.ExchangePageInputRightModal}>
           <ul>
-            {allAvailableCoins?.map((coin: TypeCoin) => (
-              <li
-                className={style.ExchangePageInputRigthCoinSelection}
-                key={coin.ticker}
-                value={contentLiRight}
-                onClick={() => {
-                  readContextRight(coin);
-                }}
-              >
-                <div>
-                  <img src={coin.image}></img>
-                </div>
-                <div>
-                  <span className={style.ExchangePageInputRigthCoinTicker}>
-                    {coin.ticker}
-                  </span>
-                  <span className={style.ExchangePageInputRigthCoinName}>
-                    {coin.name}
-                  </span>
-                </div>
-              </li>
-            ))}
+            <li className={style.ExchangePageInputRightModalSearch}>
+              <input
+                value={searchValue}
+                onChange={(event) => setSearchValue(event.target.value)}
+                className={style.ExchangePageInputRightModalInpSearch}
+                placeholder="Search by coin name"
+              />{" "}
+              <img
+                className={style.ExchangePageInputRightModalImgClose}
+                onClick={closeModal}
+                src="VectorClose.svg"
+                alt="arrow"
+              ></img>
+            </li>
+            {searchValue
+              ? allAvailableCoins
+                  .filter((el) => {
+                    return el.name
+                      .toLowerCase()
+                      .includes(searchValue.toLowerCase());
+                  })
+                  .map((coin: TypeCoin) => (
+                    <li
+                      className={style.ExchangePageInputRightCoinSelection}
+                      key={coin.ticker}
+                      value={contentLiRight}
+                      onClick={() => {
+                        readContextRight(coin);
+                      }}
+                    >
+                      <div>
+                        <img src={coin.image}></img>
+                      </div>
+                      <div>
+                        <span
+                          className={style.ExchangePageInputRightCoinTicker}
+                        >
+                          {coin.ticker}
+                        </span>
+                        <span className={style.ExchangePageInputRightCoinName}>
+                          {coin.name}
+                        </span>
+                      </div>
+                    </li>
+                  ))
+              : allAvailableCoins.map((coin: TypeCoin) => (
+                  <li
+                    className={style.ExchangePageInputRightCoinSelection}
+                    key={coin.ticker}
+                    value={contentLiRight}
+                    onClick={() => {
+                      readContextRight(coin);
+                    }}
+                  >
+                    <div>
+                      <img src={coin.image}></img>
+                    </div>
+                    <div>
+                      <span className={style.ExchangePageInputRightCoinTicker}>
+                        {coin.ticker}
+                      </span>
+                      <span className={style.ExchangePageInputRightCoinName}>
+                        {coin.name}
+                      </span>
+                    </div>
+                  </li>
+                ))}
           </ul>
         </div>
       )}

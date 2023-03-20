@@ -12,6 +12,19 @@
         border: 1px solid #E3EBEF;
         padding: 15px 20px;
         margin-top: -3px;
+        &Search{
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 10px;
+           }
+           &InpSearch{
+               background: #F6F7F8;;
+           }
+           &ImgClose {
+               &:hover{
+                   cursor: pointer;
+               }
+           }
     }
     &Btn {
         display: flex;

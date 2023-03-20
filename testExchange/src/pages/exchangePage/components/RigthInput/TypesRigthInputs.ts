@@ -1,7 +1,7 @@
 import { TypeCoin, TypeDefaultCoin } from "../../../../types/Types";
 
 export type TypeProps = {
-  allAvailableCoins: TypeCoin[] | undefined;
+  allAvailableCoins: TypeCoin[];
   rigthInput: string;
   setButtonContentRight: (coin: TypeCoin) => void;
   setContentLiRight: (coin: string) => void;
