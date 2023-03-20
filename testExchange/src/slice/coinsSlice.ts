@@ -3,7 +3,7 @@ import { CoinsState, TypeExchangeData } from "../types/Types";
 import * as coinsApi from "../api/apiExchange";
 
 const initialState: CoinsState = {
-  availableCoins: undefined,
+  availableCoins: [],
   error: undefined,
   minAmount: "",
   resExchange: "",

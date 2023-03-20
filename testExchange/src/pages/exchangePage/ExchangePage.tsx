@@ -10,6 +10,7 @@ import LeftInput from "./components/LeftInput/LeftInput";
 import RigthInput from "./components/RigthInput/RigthInput";
 
 import style from "./ExchangePage.module.scss";
+import { TypeCoin } from "../../types/Types";
 
 function ExchangePage() {
   const dispatch = useAppDispatch();
@@ -24,8 +25,8 @@ function ExchangePage() {
 
   const minAmout = useSelector((state: RootState) => state.coin.minAmount);
   const allAvailableCoins = useSelector(
-    (state: RootState) => state.coin.availableCoins
-  );
+    (state: RootState): TypeCoin[] => state.coin.availableCoins
+  );  
 
   const [contentLiLeft, setContentLiLeft] = useState<string>("btc");
   const [leftInput, setLeftInput] = useState<string>("" || resExchange);

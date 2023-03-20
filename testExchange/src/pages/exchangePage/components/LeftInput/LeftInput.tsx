@@ -15,6 +15,7 @@ function LeftInput({
   setLastActivInput,
 }: TypeProps) {
   const [showSelectCoins, setSelectCoins] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
 
   function readContextLeft(coin: TypeCoin): void {
     setButtonContentLeft(coin);
@@ -27,6 +28,9 @@ function LeftInput({
     setLastActivInput("rigth");
   }
   function changeShowSelectCoins() {
+    setSelectCoins((prev) => !prev);
+  }
+  function closeModal() {
     setSelectCoins((prev) => !prev);
   }
 
@@ -60,28 +64,71 @@ function LeftInput({
       {showSelectCoins && (
         <div className={style.ExchangePageInputLeftModal}>
           <ul>
-            {allAvailableCoins?.map((coin: TypeCoin) => (
-              <li
-                className={style.ExchangePageInputLeftCoinSelection}
-                key={coin.ticker}
-                value={contentLiLeft}
-                onClick={() => {
-                  readContextLeft(coin);
-                }}
-              >
-                <div>
-                  <img src={coin.image}></img>
-                </div>
-                <div>
-                  <span className={style.ExchangePageInputLeftCoinTicker}>
-                    {coin.ticker}
-                  </span>
-                  <span className={style.ExchangePageInputLeftCoinName}>
-                    {coin.name}
-                  </span>
-                </div>
-              </li>
-            ))}
+            <li className={style.ExchangePageInputLeftModalSearch}>
+              <input
+                value={searchValue}
+                onChange={(event) => setSearchValue(event.target.value)}
+                className={style.ExchangePageInputLeftModalInpSearch}
+                placeholder="Search by coin name"
+              />{" "}
+              <img
+                className={style.ExchangePageInputLeftModalImgClose}
+                onClick={closeModal}
+                src="VectorClose.svg"
+                alt="arrow"
+              ></img>
+            </li>
+            {searchValue
+              ? allAvailableCoins
+                  .filter((el) => {
+                    return el.name
+                      .toLowerCase()
+                      .includes(searchValue.toLowerCase());
+                  })
+                  .map((coin: TypeCoin) => (
+                    <li
+                      className={style.ExchangePageInputLeftCoinSelection}
+                      key={coin.ticker}
+                      value={contentLiLeft}
+                      onClick={() => {
+                        readContextLeft(coin);
+                      }}
+                    >
+                      <div>
+                        <img src={coin.image}></img>
+                      </div>
+                      <div>
+                        <span className={style.ExchangePageInputLeftCoinTicker}>
+                          {coin.ticker}
+                        </span>
+                        <span className={style.ExchangePageInputLeftCoinName}>
+                          {coin.name}
+                        </span>
+                      </div>
+                    </li>
+                  ))
+              : allAvailableCoins.map((coin: TypeCoin) => (
+                  <li
+                    className={style.ExchangePageInputLeftCoinSelection}
+                    key={coin.ticker}
+                    value={contentLiLeft}
+                    onClick={() => {
+                      readContextLeft(coin);
+                    }}
+                  >
+                    <div>
+                      <img src={coin.image}></img>
+                    </div>
+                    <div>
+                      <span className={style.ExchangePageInputLeftCoinTicker}>
+                        {coin.ticker}
+                      </span>
+                      <span className={style.ExchangePageInputLeftCoinName}>
+                        {coin.name}
+                      </span>
+                    </div>
+                  </li>
+                ))}
           </ul>
         </div>
       )}
