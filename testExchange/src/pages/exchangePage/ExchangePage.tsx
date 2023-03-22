@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RootState, useAppDispatch } from "../../store/Store";
 import {
   getAvailableCoins,
@@ -6,11 +6,10 @@ import {
   getPairTicketCoins,
 } from "../../slice/coinsSlice";
 import { useSelector } from "react-redux";
-import LeftInput from "./components/LeftInput/LeftInput";
-import RigthInput from "./components/RigthInput/RigthInput";
 
 import style from "./ExchangePage.module.scss";
 import { TypeCoin } from "../../types/Types";
+import Input from "./components/Input/Input";
 
 function ExchangePage() {
   const dispatch = useAppDispatch();
@@ -26,7 +25,7 @@ function ExchangePage() {
   const minAmout = useSelector((state: RootState) => state.coin.minAmount);
   const allAvailableCoins = useSelector(
     (state: RootState): TypeCoin[] => state.coin.availableCoins
-  );  
+  );
 
   const [contentLiLeft, setContentLiLeft] = useState<string>("btc");
   const [leftInput, setLeftInput] = useState<string>("" || resExchange);
@@ -97,28 +96,30 @@ function ExchangePage() {
       <h1 className={style.ExchangePageTitle}>Crypto Exchange</h1>
       <h3 className={style.ExchangePageMotto}>Exchange fast and easy</h3>
       <div className={style.ExchangePageInputs}>
-        <LeftInput
+        <Input
           allAvailableCoins={allAvailableCoins}
-          leftInput={leftInput}
-          setButtonContentLeft={setButtonContentLeft}
-          setContentLiLeft={setContentLiLeft}
-          setLeftInput={setLeftInput}
-          contentLiLeft={contentLiLeft}
-          buttonContentLeft={buttonContentLeft}
+          Input={leftInput}
+          setButtonContent={setButtonContentLeft}
+          setContentLi={setContentLiLeft}
+          setInput={setLeftInput}
+          contentLi={contentLiLeft}
+          buttonContent={buttonContentLeft}
           setLastActivInput={setLastActivInput}
+          lastActiv={"rigth"}
         />
         <button className={style.ExchangePageBtnReverse}>
           <img src="swap.svg" alt="reverse" width="20" height="20" />
         </button>
-        <RigthInput
-          setButtonContentRight={setButtonContentRight}
-          setContentLiRight={setContentLiRight}
-          setRightInput={setRightInput}
-          buttonContentRight={buttonContentRight}
+        <Input
+          setButtonContent={setButtonContentRight}
+          setContentLi={setContentLiRight}
+          setInput={setRightInput}
+          buttonContent={buttonContentRight}
           allAvailableCoins={allAvailableCoins}
-          contentLiRight={contentLiRight}
-          rigthInput={rigthInput}
+          contentLi={contentLiRight}
+          Input={rigthInput}
           setLastActivInput={setLastActivInput}
+          lastActiv={"left"}
         />
       </div>
       {showErrorPairs ? (

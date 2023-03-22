@@ -1,78 +1,79 @@
 import { useState } from "react";
 import { TypeCoin } from "../../../../types/Types";
+import { TypeProps } from "./TypesInput";
 
-import style from "./RigthInput.module.scss";
-import { TypeProps } from "./TypesRigthInputs";
+import style from "./Input.module.scss";
 
-function RigthInput({
-  setButtonContentRight,
-  setContentLiRight,
-  setRightInput,
-  buttonContentRight,
+function Input({
   allAvailableCoins,
-  contentLiRight,
-  rigthInput,
+  Input,
+  setButtonContent,
+  setContentLi,
+  setInput,
+  contentLi,
+  buttonContent,
   setLastActivInput,
+  lastActiv,
 }: TypeProps) {
   const [showSelectCoins, setSelectCoins] = useState(false);
   const [searchValue, setSearchValue] = useState("");
-  function readContextRight(coin: TypeCoin): void {
-    setButtonContentRight(coin);
-    setContentLiRight(coin.ticker);
+
+  function readContext(coin: TypeCoin): void {
+    setButtonContent(coin);
+    setContentLi(coin.ticker);
   }
-  function changeRigthInput(event: React.ChangeEvent<HTMLInputElement>): void {
-    setRightInput(event.target.value);
+  function changeInput(event: React.ChangeEvent<HTMLInputElement>): void {
+    setInput(event.target.value);
   }
-  function onFocus() {
-    setLastActivInput("left");
+  function onFocus(): void {
+    setLastActivInput(lastActiv);
   }
   function changeShowSelectCoins() {
     setSelectCoins((prev) => !prev);
   }
-
   function closeModal() {
     setSelectCoins((prev) => !prev);
   }
 
   return (
-    <div className={style.ExchangePageInputRight}>
-      <div className={style.ExchangePageInputRightBtnInput}>
+    <div className={style.ExchangePageInput}>
+      <div className={style.ExchangePageInputBtnInput}>
         <input
-          className={style.ExchangePageInputRightIptCoin}
-          value={rigthInput}
-          onChange={changeRigthInput}
+          className={style.ExchangePageInputIptCoin}
+          value={Input}
+          onChange={changeInput}
           onFocus={onFocus}
         ></input>
         <div
           onClick={changeShowSelectCoins}
-          className={style.ExchangePageInputRightBtn}
+          className={style.ExchangePageInputBtn}
         >
           <img
-            className={style.ExchangePageInputRightBtnImg}
-            src={buttonContentRight.image}
+            className={style.ExchangePageInputBtnImg}
+            src={buttonContent.image}
           ></img>
-          <span className={style.ExchangePageInputRightCoinTicker}>
-            {buttonContentRight.ticker}
+          <span className={style.ExchangePageInputCoinTicker}>
+            {buttonContent.ticker}
           </span>
           <img
-            className={style.ExchangePageInputRightBtnArrow}
+            className={style.ExchangePageInputBtnArrow}
             src="Vector.svg"
             alt="arrow"
           ></img>
         </div>
       </div>
       {showSelectCoins && (
-        <div className={style.ExchangePageInputRightModal}>
+        <div className={style.ExchangePageInputModal}>
           <ul>
-            <li className={style.ExchangePageInputRightModalSearch}>
+            <li className={style.ExchangePageInputModalSearch}>
               <input
                 value={searchValue}
                 onChange={(event) => setSearchValue(event.target.value)}
-                className={style.ExchangePageInputRightModalInpSearch}
+                className={style.ExchangePageInputModalInpSearch}
                 placeholder="Search by coin name"
               />{" "}
               <img
-                className={style.ExchangePageInputRightModalImgClose}
+                className={style.ExchangePageInputModalImgClose}
                 onClick={closeModal}
                 src="VectorClose.svg"
                 alt="arrow"
@@ -87,23 +88,21 @@ function RigthInput({
                   })
                   .map((coin: TypeCoin) => (
                     <li
-                      className={style.ExchangePageInputRightCoinSelection}
+                      className={style.ExchangePageInputCoinSelection}
                       key={coin.ticker}
-                      value={contentLiRight}
+                      value={contentLi}
                       onClick={() => {
-                        readContextRight(coin);
+                        readContext(coin);
                       }}
                     >
                       <div>
                         <img src={coin.image}></img>
                       </div>
                       <div>
-                        <span
-                          className={style.ExchangePageInputRightCoinTicker}
-                        >
+                        <span className={style.ExchangePageInputCoinTicker}>
                           {coin.ticker}
                         </span>
-                        <span className={style.ExchangePageInputRightCoinName}>
+                        <span className={style.ExchangePageInputCoinName}>
                           {coin.name}
                         </span>
                       </div>
@@ -111,21 +110,21 @@ function RigthInput({
                   ))
               : allAvailableCoins.map((coin: TypeCoin) => (
                   <li
-                    className={style.ExchangePageInputRightCoinSelection}
+                    className={style.ExchangePageInputCoinSelection}
                     key={coin.ticker}
-                    value={contentLiRight}
+                    value={contentLi}
                     onClick={() => {
-                      readContextRight(coin);
+                      readContext(coin);
                     }}
                   >
                     <div>
                       <img src={coin.image}></img>
                     </div>
                     <div>
-                      <span className={style.ExchangePageInputRightCoinTicker}>
+                      <span className={style.ExchangePageInputCoinTicker}>
                         {coin.ticker}
                       </span>
-                      <span className={style.ExchangePageInputRightCoinName}>
+                      <span className={style.ExchangePageInputCoinName}>
                         {coin.name}
                       </span>
                     </div>
@@ -138,4 +137,4 @@ function RigthInput({
   );
 }
 
-export default RigthInput;
+export default Input;
