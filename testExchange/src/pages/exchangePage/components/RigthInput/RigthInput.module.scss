@@ -32,6 +32,9 @@
         align-items: center;
         width: 150px;
         border-left: 1px solid #E3EBEF;
+        &:hover{
+            cursor: pointer;
+        }
         &Arrow{
             height: 6px;
             width: 10px;
