@@ -122,26 +122,6 @@ function ExchangePage() {
           lastActiv={"left"}
         />
       </div>
-      {showErrorPairs ? (
-        <div className={style.ExchangePageError}>
-          <span className={style.ExchangePageTextError}>{error}</span>
-        </div>
-      ) : (
-        <div className={style.ExchangePageError}>
-          <span className={style.ExchangePageTextError}></span>
-        </div>
-      )}
-      {showErrorMin ? (
-        <div className={style.ExchangePageError}>
-          {" "}
-          Enter amounts above{" "}
-          <span className={style.ExchangePageTextError}>{minAmout}</span>
-        </div>
-      ) : (
-        <div className={style.ExchangePageError}>
-          <span className={style.ExchangePageTextError}></span>
-        </div>
-      )}
       <div>
         <h3 className={style.ExchangePageTitleAdress}>Your Ethereum address</h3>
         <div className={style.ExchangePageUserAddress}>
@@ -152,6 +132,21 @@ function ExchangePage() {
           ></input>
           <button className={style.ExchangePageBtnExchange}>Exchange</button>
         </div>
+        {showErrorPairs ? (
+          <div className={style.ExchangePageError}>
+            <span>{error}</span>
+          </div>
+        ) : (
+          <div className={style.ExchangePageError} />
+        )}
+        {showErrorMin ? (
+          <div className={style.ExchangePageError}>
+            {" "}
+            Enter amounts above <span>{minAmout}</span>
+          </div>
+        ) : (
+          <div className={style.ExchangePageError} />
+        )}
       </div>
     </div>
   );

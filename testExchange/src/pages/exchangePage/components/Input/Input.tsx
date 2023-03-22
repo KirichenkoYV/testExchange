@@ -48,13 +48,15 @@ function Input({
           onClick={changeShowSelectCoins}
           className={style.ExchangePageInputBtn}
         >
-          <img
-            className={style.ExchangePageInputBtnImg}
-            src={buttonContent.image}
-          ></img>
-          <span className={style.ExchangePageInputCoinTicker}>
-            {buttonContent.ticker}
-          </span>
+          <div className={style.ExchangePageInputBtnImage}>
+            <img
+              className={style.ExchangePageInputBtnImg}
+              src={buttonContent.image}
+            ></img>
+            <span className={style.ExchangePageInputCoinTicker}>
+              {buttonContent.ticker}
+            </span>
+          </div>
           <img
             className={style.ExchangePageInputBtnArrow}
             src="Vector.svg"
@@ -64,7 +66,7 @@ function Input({
       </div>
       {showSelectCoins && (
         <div className={style.ExchangePageInputModal}>
-          <ul>
+          <ul className={style.ExchangePageInputModalUl}>
             <li className={style.ExchangePageInputModalSearch}>
               <input
                 value={searchValue}
