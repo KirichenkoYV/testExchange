@@ -87,8 +87,15 @@
     &BtnImage{
         display: flex;
         align-items: center;
-        gap: 13px;
-        padding-left: 23px;
+        gap: 15px;
+        padding-left: 30px;
+    }
+    &BtnImageLongs{
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-left: 6px;
+        margin-right: 2px;
     }
 }
 @media (max-width: 990px) {

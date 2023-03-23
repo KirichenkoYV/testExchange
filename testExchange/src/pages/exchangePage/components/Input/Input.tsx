@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TypeCoin } from "../../../../types/Types";
 import { TypeProps } from "./TypesInput";
 
@@ -17,6 +17,18 @@ function Input({
 }: TypeProps) {
   const [showSelectCoins, setSelectCoins] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+
+  // const modalRef = useRef<HTMLDivElement>(null);
+  // useEffect(() => {
+  //   const closeModal = (e) => {
+  //     console.log(e);
+
+  //     if (e.path !== modalRef) {
+  //     }
+  //   };
+
+  //   document.body.addEventListener("click", closeModal);
+  // }, []);
 
   function readContext(coin: TypeCoin): void {
     setButtonContent(coin);
@@ -48,15 +60,27 @@ function Input({
           onClick={changeShowSelectCoins}
           className={style.ExchangePageInputBtn}
         >
-          <div className={style.ExchangePageInputBtnImage}>
-            <img
-              className={style.ExchangePageInputBtnImg}
-              src={buttonContent.image}
-            ></img>
-            <span className={style.ExchangePageInputCoinTicker}>
-              {buttonContent.ticker}
-            </span>
-          </div>
+          {buttonContent.ticker.length < 7 ? (
+            <div className={style.ExchangePageInputBtnImage}>
+              <img
+                className={style.ExchangePageInputBtnImg}
+                src={buttonContent.image}
+              ></img>
+              <span className={style.ExchangePageInputCoinTicker}>
+                {buttonContent.ticker}
+              </span>
+            </div>
+          ) : (
+            <div className={style.ExchangePageInputBtnImageLongs}>
+              <img
+                className={style.ExchangePageInputBtnImg}
+                src={buttonContent.image}
+              ></img>
+              <span className={style.ExchangePageInputCoinTicker}>
+                {buttonContent.ticker}
+              </span>
+            </div>
+          )}
           <img
             className={style.ExchangePageInputBtnArrow}
             src="Vector.svg"
@@ -65,7 +89,10 @@ function Input({
         </div>
       </div>
       {showSelectCoins && (
-        <div className={style.ExchangePageInputModal}>
+        <div
+          // ref={modalRef}
+          className={style.ExchangePageInputModal}
+        >
           <ul className={style.ExchangePageInputModalUl}>
             <li className={style.ExchangePageInputModalSearch}>
               <input
