@@ -28,7 +28,7 @@
     color: #ef1405;
 }
 &BtnExchange { 
-    background-color: #0fb4fe;
+    background-color: #0eb3ff;
     border-radius: 5px;
     border: none;
     color: white;
@@ -40,6 +40,10 @@
     &:hover{
         cursor: pointer;
     }
+    &:active {
+        vertical-align: middle;
+        background: #0495e0}
+
 }
 &BtnReverse {
     width: 24px;
