@@ -26,7 +26,7 @@ function ExchangePage() {
   const allAvailableCoins = useSelector(
     (state: RootState): TypeCoin[] => state.coin.availableCoins
   );
-  
+
   const [contentLiLeft, setContentLiLeft] = useState<string>("btc");
   const [leftInput, setLeftInput] = useState<string>("" || resExchange);
   const [buttonContentLeft, setButtonContentLeft] = useState(
@@ -65,7 +65,9 @@ function ExchangePage() {
     setShowError(false);
     if (lastActivInput === "rigth") {
       const pairCoins = `${contentLiLeft}_${contentLiRight}`;
-      dispatch(getPairTicketCoins(pairCoins));
+      if (leftInput > minAmout) {
+        dispatch(getPairTicketCoins(pairCoins));
+      }
       const exchangeData = {
         firstCoin: contentLiLeft,
         secondCoin: contentLiRight,
@@ -74,7 +76,8 @@ function ExchangePage() {
       if (
         exchangeData.firstCoin &&
         exchangeData.secondCoin &&
-        exchangeData.exchangeAmout.length > 0
+        exchangeData.exchangeAmout.length > 0 &&
+        (leftInput > minAmout)
       ) {
         dispatch(getExchangeData(exchangeData));
       }
