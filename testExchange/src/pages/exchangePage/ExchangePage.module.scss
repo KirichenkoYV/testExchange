@@ -24,10 +24,19 @@
     padding-bottom: 60px;
 }
 &Error {
-    height: 30px;
     color: #ef1405;
     display: flex;
+    height: 23px;
     justify-content: end;
+    padding-right: 12px;
+    line-height: 23px;
+}
+&ErrorMin {
+    color: #ef1405;
+    display: flex;
+    height: 23px;
+    justify-content: end;
+    line-height: 23px;
 }
 &BtnExchange { 
     background-color: #0eb3ff;
@@ -102,6 +111,9 @@
             margin: 20px 0px 20px 0px;
             transform: rotate(90deg);
         }
+        &Error {
+            justify-content: center;
+        }
     }
 }
 @media (max-width: 430px) {
@@ -112,6 +124,9 @@
         }
         &BtnExchange {
             width: 326px;
-        }  
+        }
+        &Error {
+            justify-content: center;
+        }
     }
 }
