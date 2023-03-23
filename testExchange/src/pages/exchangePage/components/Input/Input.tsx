@@ -60,24 +60,24 @@ function Input({
           onClick={changeShowSelectCoins}
           className={style.ExchangePageInputBtn}
         >
-          {buttonContent.ticker.length < 7 ? (
+          {buttonContent?.ticker.length < 7 ? (
             <div className={style.ExchangePageInputBtnImage}>
               <img
                 className={style.ExchangePageInputBtnImg}
-                src={buttonContent.image}
+                src={buttonContent?.image}
               ></img>
               <span className={style.ExchangePageInputCoinTicker}>
-                {buttonContent.ticker}
+                {buttonContent?.ticker}
               </span>
             </div>
           ) : (
             <div className={style.ExchangePageInputBtnImageLongs}>
               <img
                 className={style.ExchangePageInputBtnImg}
-                src={buttonContent.image}
+                src={buttonContent?.image}
               ></img>
               <span className={style.ExchangePageInputCoinTicker}>
-                {buttonContent.ticker}
+                {buttonContent?.ticker}
               </span>
             </div>
           )}

@@ -89,13 +89,14 @@
         align-items: center;
         gap: 15px;
         padding-left: 30px;
+        padding-right: 10px;
     }
     &BtnImageLongs{
         display: flex;
         align-items: center;
-        gap: 6px;
-        margin-left: 6px;
-        margin-right: 2px;
+        gap: 5px;
+        margin-left: 5px;
+        padding-right: 4px;
     }
 }
 @media (max-width: 990px) {

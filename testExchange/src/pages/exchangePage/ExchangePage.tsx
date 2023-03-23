@@ -26,24 +26,28 @@ function ExchangePage() {
   const allAvailableCoins = useSelector(
     (state: RootState): TypeCoin[] => state.coin.availableCoins
   );
-
+  
   const [contentLiLeft, setContentLiLeft] = useState<string>("btc");
   const [leftInput, setLeftInput] = useState<string>("" || resExchange);
-  const [buttonContentLeft, setButtonContentLeft] = useState({
-    ticker: "btc",
-    image: "https://content-api.changenow.io/uploads/btc_d8db07f87d.svg",
-  });
+  const [buttonContentLeft, setButtonContentLeft] = useState(
+    allAvailableCoins[0]
+  );
 
-  const [buttonContentRight, setButtonContentRight] = useState({
-    ticker: "eth",
-    image: "https://content-api.changenow.io/uploads/eth_f4ebb54ec0.svg",
-  });
+  const [buttonContentRight, setButtonContentRight] = useState(
+    allAvailableCoins[1]
+  );
+
   const [contentLiRight, setContentLiRight] = useState<string>("eth");
   const [rigthInput, setRightInput] = useState<string>(resExchange);
 
   useLayoutEffect(() => {
     dispatch(getAvailableCoins());
   }, []);
+
+  useEffect(() => {
+    setButtonContentLeft(allAvailableCoins[0]);
+    setButtonContentRight(allAvailableCoins[1]);
+  }, [allAvailableCoins]);
 
   useEffect(() => {
     if (lastActivInput === "left") {
