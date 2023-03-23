@@ -26,6 +26,8 @@
 &Error {
     height: 30px;
     color: #ef1405;
+    display: flex;
+    justify-content: end;
 }
 &BtnExchange { 
     background-color: #0eb3ff;

@@ -141,8 +141,7 @@ function ExchangePage() {
         )}
         {showErrorMin ? (
           <div className={style.ExchangePageError}>
-            {" "}
-            Enter amounts above <span>{minAmout}</span>
+            Enter amounts above{" "}<span> {minAmout}</span>
           </div>
         ) : (
           <div className={style.ExchangePageError} />
