@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { RootState, useAppDispatch } from "../../store/Store";
 import {
   getAvailableCoins,
@@ -14,8 +14,8 @@ import Input from "./components/Input/Input";
 function ExchangePage() {
   const dispatch = useAppDispatch();
 
-  const [showErrorMin, setshowErrorMin] = useState<boolean>(false);
-  const [showErrorPairs, setshowErrorPairs] = useState<boolean>(false);
+  const [showError, setShowError] = useState<boolean>(false);
+
   const [lastActivInput, setLastActivInput] = useState<string>("left");
   const [addressEth, setAdressEth] = useState<string>("");
 
@@ -41,7 +41,7 @@ function ExchangePage() {
   const [contentLiRight, setContentLiRight] = useState<string>("eth");
   const [rigthInput, setRightInput] = useState<string>(resExchange);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     dispatch(getAvailableCoins());
   }, []);
 
@@ -58,8 +58,7 @@ function ExchangePage() {
   }, [contentLiRight, contentLiLeft, rigthInput, resExchange]);
 
   useEffect(() => {
-    setshowErrorMin(false);
-    setshowErrorPairs(false);
+    setShowError(false);
     if (lastActivInput === "rigth") {
       const pairCoins = `${contentLiLeft}_${contentLiRight}`;
       dispatch(getPairTicketCoins(pairCoins));
@@ -68,16 +67,22 @@ function ExchangePage() {
         secondCoin: contentLiRight,
         exchangeAmout: leftInput,
       };
-      dispatch(getExchangeData(exchangeData));
+      if (
+        exchangeData.firstCoin &&
+        exchangeData.secondCoin &&
+        exchangeData.exchangeAmout.length > 0
+      ) {
+        dispatch(getExchangeData(exchangeData));
+      }
       if (leftInput < minAmout) {
         setRightInput("-");
-        setshowErrorMin(true);
+        setShowError(true);
       } else {
         setRightInput(resExchange);
       }
       if (error) {
         setRightInput("-");
-        setshowErrorPairs(true);
+        setShowError(true);
       }
     }
   }, [contentLiRight, contentLiLeft, leftInput, resExchange, error]);
@@ -86,7 +91,7 @@ function ExchangePage() {
     const pairCoins = `${contentLiLeft}_${contentLiRight}`;
     dispatch(getPairTicketCoins(pairCoins));
     setLeftInput(minAmout);
-  }, [contentLiLeft, minAmout]);
+  }, [contentLiLeft, minAmout, contentLiRight]);
 
   function changeAdressEth(event: React.ChangeEvent<HTMLInputElement>): void {
     setAdressEth(event?.target.value);
@@ -132,16 +137,16 @@ function ExchangePage() {
           ></input>
           <button className={style.ExchangePageBtnExchange}>Exchange</button>
         </div>
-        {showErrorPairs ? (
+        {showError ? (
           <div className={style.ExchangePageError}>
             <span>{error}</span>
           </div>
         ) : (
           <div className={style.ExchangePageError} />
         )}
-        {showErrorMin ? (
+        {showError ? (
           <div className={style.ExchangePageErrorMin}>
-            Enter amounts above{" "}<span> {minAmout}</span>
+            Enter amounts above <span> {minAmout}</span>
           </div>
         ) : (
           <div className={style.ExchangePageError} />
