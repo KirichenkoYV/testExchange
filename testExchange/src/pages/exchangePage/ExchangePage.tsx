@@ -56,8 +56,10 @@ function ExchangePage() {
         secondCoin: contentLiLeft,
         exchangeAmout: rigthInput,
       };
-      dispatch(getExchangeData(exchangeData));
-      setLeftInput(resExchange);
+     if (exchangeData.exchangeAmout) {
+        dispatch(getExchangeData(exchangeData));
+        setLeftInput(resExchange);
+      }
     }
   }, [contentLiRight, contentLiLeft, rigthInput, resExchange]);
 
@@ -77,7 +79,7 @@ function ExchangePage() {
         exchangeData.firstCoin &&
         exchangeData.secondCoin &&
         exchangeData.exchangeAmout.length > 0 &&
-        (leftInput > minAmout)
+        leftInput > minAmout
       ) {
         dispatch(getExchangeData(exchangeData));
       }
