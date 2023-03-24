@@ -28,7 +28,7 @@ function ExchangePage() {
   );
 
   const [contentLiLeft, setContentLiLeft] = useState<string>("btc");
-  const [leftInput, setLeftInput] = useState<string>("" || resExchange);
+  const [leftInput, setLeftInput] = useState<string>(minAmout || resExchange);
   const [buttonContentLeft, setButtonContentLeft] = useState(
     allAvailableCoins[0]
   );
@@ -56,51 +56,57 @@ function ExchangePage() {
         secondCoin: contentLiLeft,
         exchangeAmout: rigthInput,
       };
-     if (exchangeData.exchangeAmout) {
+      if (exchangeData.exchangeAmout) {
         dispatch(getExchangeData(exchangeData));
-        setLeftInput(resExchange);
       }
     }
-  }, [contentLiRight, contentLiLeft, rigthInput, resExchange]);
+  }, [contentLiLeft, rigthInput]);
 
   useEffect(() => {
     setShowError(false);
     if (lastActivInput === "rigth") {
-      const pairCoins = `${contentLiLeft}_${contentLiRight}`;
       if (leftInput > minAmout) {
-        dispatch(getPairTicketCoins(pairCoins));
-      }
-      const exchangeData = {
-        firstCoin: contentLiLeft,
-        secondCoin: contentLiRight,
-        exchangeAmout: leftInput,
-      };
-      if (
-        exchangeData.firstCoin &&
-        exchangeData.secondCoin &&
-        exchangeData.exchangeAmout.length > 0 &&
-        leftInput > minAmout
-      ) {
-        dispatch(getExchangeData(exchangeData));
-      }
-      if (leftInput < minAmout) {
+        const exchangeData = {
+          firstCoin: contentLiLeft,
+          secondCoin: contentLiRight,
+          exchangeAmout: leftInput,
+        };
+        if (
+          exchangeData.firstCoin &&
+          exchangeData.secondCoin &&
+          exchangeData.exchangeAmout.length > 0 &&
+          leftInput > minAmout
+        ) {
+          dispatch(getExchangeData(exchangeData));
+        }
+      } else {
         setRightInput("-");
         setShowError(true);
-      } else {
-        setRightInput(resExchange);
       }
       if (error) {
         setRightInput("-");
         setShowError(true);
       }
     }
-  }, [contentLiRight, contentLiLeft, leftInput, resExchange, error]);
+  }, [contentLiRight, leftInput, error]);
+
+  useEffect(() => {
+    if (lastActivInput === "rigth") {
+      setRightInput(resExchange);
+    } else {
+      setLeftInput(resExchange);
+    }
+  }, [resExchange]);
 
   useEffect(() => {
     const pairCoins = `${contentLiLeft}_${contentLiRight}`;
     dispatch(getPairTicketCoins(pairCoins));
     setLeftInput(minAmout);
-  }, [contentLiLeft, minAmout, contentLiRight]);
+  }, [contentLiLeft, contentLiRight]);
+
+  useEffect(() => {
+    setLeftInput(minAmout);
+  }, [minAmout]);
 
   function changeAdressEth(event: React.ChangeEvent<HTMLInputElement>): void {
     setAdressEth(event?.target.value);
