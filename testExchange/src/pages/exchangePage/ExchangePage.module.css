@@ -1,0 +1,134 @@
+.ExchangePage {
+  display: flex;
+  flex-direction: column;
+  max-width: 966px;
+  width: 100%;
+}
+.ExchangePageInputs {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.ExchangePageTitleAdress {
+  padding: 32px 0 8px 0;
+}
+.ExchangePageTitle {
+  font-weight: 300;
+  font-size: 50px;
+  color: #282828;
+  padding-bottom: 16px;
+  line-height: 120%;
+}
+.ExchangePageMotto {
+  font-size: 1.25rem;
+  color: #282828;
+  padding-bottom: 60px;
+}
+.ExchangePageError {
+  color: #ef1405;
+  display: flex;
+  height: 23px;
+  justify-content: end;
+  padding-right: 12px;
+  line-height: 23px;
+}
+.ExchangePageErrorMin {
+  color: #ef1405;
+  display: flex;
+  height: 23px;
+  justify-content: end;
+  line-height: 23px;
+}
+.ExchangePageBtnExchange {
+  background-color: #0eb3ff;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  width: 205px;
+  height: 50px;
+  font-size: 1rem;
+  margin-left: 32px;
+  text-transform: uppercase;
+}
+.ExchangePageBtnExchange:hover {
+  cursor: pointer;
+}
+.ExchangePageBtnExchange:active {
+  vertical-align: middle;
+  background: #0495e0;
+}
+.ExchangePageBtnReverse {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: none;
+  z-index: 0;
+  margin-left: 29px;
+  margin-right: 29px;
+}
+.ExchangePageBtnReverse:hover {
+  cursor: pointer;
+}
+.ExchangePageUserAddress {
+  display: flex;
+  flex-direction: row;
+  max-width: 966px;
+  width: 100%;
+}
+.ExchangePageInputAddress {
+  max-width: 723px;
+  width: 100%;
+  height: 48px;
+  background: #F6F7F8;
+  border: 1px solid #E3EBEF;
+  border-radius: 5px;
+}
+
+@media (max-width: 900px) {
+  .ExchangePageInputs {
+    display: flex;
+    flex-direction: column;
+    align-items: self-end;
+  }
+  .ExchangePageTitle {
+    font-size: 40px;
+    font-weight: 300;
+  }
+  .ExchangePageUserAddress {
+    display: flex;
+    flex-direction: column;
+  }
+  .ExchangePageInputAddress {
+    width: 400px;
+    padding: 0px;
+  }
+  .ExchangePageBtnExchange {
+    width: 400px;
+    margin-left: 0;
+    margin-top: 16px;
+  }
+  .ExchangePageBtnReverse {
+    margin: 20px 0px 20px 0px;
+    transform: rotate(90deg);
+  }
+  .ExchangePageError, .ExchangePageErrorMin {
+    justify-content: center;
+  }
+}
+@media (max-width: 430px) {
+  .ExchangePageInputAddress {
+    width: 326px;
+    padding: 0px;
+  }
+  .ExchangePageBtnExchange {
+    width: 326px;
+  }
+  .ExchangePageError, .ExchangePageErrorMin {
+    justify-content: center;
+  }
+}
+@media (max-width: 990px) {
+  .ExchangePageError {
+    padding-right: 0px;
+  }
+}/*# sourceMappingURL=ExchangePage.module.css.map */

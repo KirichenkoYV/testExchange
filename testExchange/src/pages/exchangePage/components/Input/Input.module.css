@@ -1,0 +1,124 @@
+.ExchangePageInput {
+  width: 440px;
+  border: 1px solid #E3EBEF;
+  border-radius: 5px;
+}
+.ExchangePageInputModal {
+  overflow-y: scroll;
+  max-height: 194px;
+  position: absolute;
+  background: #f5f7f8;
+  border-radius: 5px;
+  width: 440px;
+  border: 1px solid #E3EBEF;
+  margin-top: -51px;
+  z-index: 1000;
+}
+.ExchangePageInputModalSearch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #E3EBEF;
+  height: 50px;
+  padding: 0 15px;
+}
+.ExchangePageInputModalInpSearch {
+  background: #f5f7f8;
+}
+.ExchangePageInputModalImgClose {
+  height: 10px;
+  width: 10px;
+}
+.ExchangePageInputModalImgClose:hover {
+  cursor: pointer;
+}
+.ExchangePageInputBtn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 150px;
+  border-left: 1px solid #E3EBEF;
+}
+.ExchangePageInputBtn:hover {
+  cursor: pointer;
+}
+.ExchangePageInputBtnArrow {
+  height: 6px;
+  width: 10px;
+}
+.ExchangePageInputBtnImg {
+  height: 20px;
+  width: 20px;
+}
+.ExchangePageInputIptCoin {
+  background: #f5f7f8;
+  border-radius: 5px;
+  width: 290px;
+}
+.ExchangePageInputBtnInput {
+  display: flex;
+  justify-content: space-between;
+  background: #f5f7f8;
+  height: 30px;
+  border-radius: 5px;
+  padding: 10px 15px;
+}
+.ExchangePageInputCoinSelection {
+  display: flex;
+  padding: 0px 10px 0 10px;
+  flex-direction: row;
+  align-items: center;
+  height: 48px;
+}
+.ExchangePageInputCoinSelection:hover {
+  cursor: pointer;
+  background: #ebf1f7;
+}
+.ExchangePageInputCoinSelection * {
+  padding-right: 16px;
+}
+.ExchangePageInputCoinName {
+  color: #80A2B6;
+}
+.ExchangePageInputCoinTicker {
+  text-transform: uppercase;
+}
+.ExchangePageInputBtnImage {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding-left: 30px;
+  padding-right: 10px;
+}
+.ExchangePageInputBtnImageLongs {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: 5px;
+  padding-right: 4px;
+}
+
+@media (max-width: 990px) {
+  .ExchangePageInput {
+    width: 360px;
+  }
+  .ExchangePageInputModal {
+    width: 360px;
+  }
+}
+@media (max-width: 900px) {
+  .ExchangePageInput {
+    width: 400px;
+  }
+  .ExchangePageInputModal {
+    width: 400px;
+  }
+}
+@media (max-width: 430px) {
+  .ExchangePageInput {
+    width: 326px;
+  }
+  .ExchangePageInputModal {
+    width: 305px;
+  }
+}/*# sourceMappingURL=Input.module.css.map */
