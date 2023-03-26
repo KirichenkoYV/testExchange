@@ -1,10 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { RootState, useAppDispatch } from "../../store/Store";
-import {
-  getAvailableCoins,
-  getExchangeData,
-  getPairTicketCoins,
-} from "../../slice/coinsSlice";
+import { getAvailableCoins, getExchangeData, getPairTicketCoins } from "../../slice/coinsSlice";
 import { useSelector } from "react-redux";
 
 import style from "./ExchangePage.module.scss";
@@ -29,14 +25,9 @@ function ExchangePage() {
 
   const [contentLiLeft, setContentLiLeft] = useState<string>("btc");
   const [leftInput, setLeftInput] = useState<string>(minAmout || resExchange);
-  const [buttonContentLeft, setButtonContentLeft] = useState(
-    allAvailableCoins[0]
-  );
+  const [buttonContentLeft, setButtonContentLeft] = useState<TypeCoin>(allAvailableCoins[0]);
 
-  const [buttonContentRight, setButtonContentRight] = useState(
-    allAvailableCoins[1]
-  );
-
+  const [buttonContentRight, setButtonContentRight] = useState<TypeCoin>(allAvailableCoins[1]);
   const [contentLiRight, setContentLiRight] = useState<string>("eth");
   const [rigthInput, setRightInput] = useState<string>(resExchange);
 
@@ -85,6 +76,7 @@ function ExchangePage() {
       }
       if (error) {
         setRightInput("-");
+        setLeftInput("-");
         setShowError(true);
       }
     }
@@ -159,9 +151,9 @@ function ExchangePage() {
         ) : (
           <div className={style.ExchangePageError} />
         )}
-        {showError ? (
+        {showError && !error ? (
           <div className={style.ExchangePageErrorMin}>
-            Enter amounts above <span> {minAmout}</span>
+            Enter amounts above<span>{minAmout}</span>
           </div>
         ) : (
           <div className={style.ExchangePageError} />
