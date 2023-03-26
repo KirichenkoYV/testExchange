@@ -11,6 +11,7 @@
         width: 440px;
         border: 1px solid #E3EBEF;
         margin-top: -51px;
+        z-index: 1000;
         &Search{
             display: flex;
             align-items: center;
@@ -71,6 +72,7 @@
         height: 48px;
         &:hover{
             cursor: pointer;
+            background: #ebf1f7;
         }
     }
     &CoinSelection * {

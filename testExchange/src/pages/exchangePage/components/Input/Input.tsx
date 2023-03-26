@@ -18,17 +18,20 @@ function Input({
   const [showSelectCoins, setSelectCoins] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
-  // const modalRef = useRef<HTMLDivElement>(null);
-  // useEffect(() => {
-  //   const closeModal = (e) => {
-  //     console.log(e);
-
-  //     if (e.path !== modalRef) {
-  //     }
-  //   };
-
-  //   document.body.addEventListener("click", closeModal);
-  // }, []);
+  const modalRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!modalRef) return;
+    const handleClick = (e: any) => {
+      if (!modalRef.current) return;
+      if (!modalRef.current.contains(e.target)) {
+        closeModal();
+      }
+    };
+    document.addEventListener("mousedown", handleClick);
+    return () => {
+      document.removeEventListener("mousedown", handleClick);
+    };
+  }, [showSelectCoins, closeModal]);
 
   function readContext(coin: TypeCoin): void {
     setButtonContent(coin);
@@ -44,7 +47,7 @@ function Input({
     setSelectCoins((prev) => !prev);
   }
   function closeModal() {
-    setSelectCoins((prev) => !prev);
+    setSelectCoins(false);
   }
 
   return (
@@ -89,10 +92,7 @@ function Input({
         </div>
       </div>
       {showSelectCoins && (
-        <div
-          // ref={modalRef}
-          className={style.ExchangePageInputModal}
-        >
+        <div ref={modalRef} className={style.ExchangePageInputModal}>
           <ul className={style.ExchangePageInputModalUl}>
             <li className={style.ExchangePageInputModalSearch}>
               <input
@@ -127,7 +127,7 @@ function Input({
                       <div>
                         <img src={coin.image}></img>
                       </div>
-                      <div>
+                      <div ref={modalRef}>
                         <span className={style.ExchangePageInputCoinTicker}>
                           {coin.ticker}
                         </span>
