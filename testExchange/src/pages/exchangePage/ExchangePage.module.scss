@@ -9,7 +9,7 @@
     align-items: center;
 }
 &TitleAdress {
-    padding: 2px 0 8px 0;
+    padding: 32px 0 8px 0;
 }
 &Title{
     font-weight: 300;
@@ -23,14 +23,23 @@
     color: #282828;
     padding-bottom: 60px;
 }
-&TextError {
-    color: #0095E0;
-}
 &Error {
-    height: 30px;
+    color: #ef1405;
+    display: flex;
+    height: 23px;
+    justify-content: end;
+    padding-right: 12px;
+    line-height: 23px;
+}
+&ErrorMin {
+    color: #ef1405;
+    display: flex;
+    height: 23px;
+    justify-content: end;
+    line-height: 23px;
 }
 &BtnExchange { 
-    background-color: #0095E0;
+    background-color: #0eb3ff;
     border-radius: 5px;
     border: none;
     color: white;
@@ -42,12 +51,17 @@
     &:hover{
         cursor: pointer;
     }
+    &:active {
+        vertical-align: middle;
+        background: #0495e0}
+
 }
 &BtnReverse {
     width: 24px;
     height: 24px;
     border: none;
     background: none;
+    z-index: 0;
     &:hover{
         cursor: pointer;
     }
@@ -95,7 +109,11 @@
             margin-top: 16px;
         }
         &BtnReverse {
-            margin: 20px 0px 20px 0px
+            margin: 20px 0px 20px 0px;
+            transform: rotate(90deg);
+        }
+        &Error {
+            justify-content: center;
         }
     }
 }
@@ -107,6 +125,9 @@
         }
         &BtnExchange {
             width: 326px;
-        }  
+        }
+        &Error {
+            justify-content: center;
+        }
     }
 }
