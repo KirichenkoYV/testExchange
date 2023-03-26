@@ -15,15 +15,16 @@ function Input({
   setLastActivInput,
   lastActiv,
 }: TypeProps) {
-  const [showSelectCoins, setSelectCoins] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
+  const [showSelectCoins, setSelectCoins] = useState<boolean>(false);
+  const [searchValue, setSearchValue] = useState<string>("");
 
   const modalRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (!modalRef) return;
-    const handleClick = (e: any) => {
+    const handleClick = (event: any) => {
       if (!modalRef.current) return;
-      if (!modalRef.current.contains(e.target)) {
+      if (!modalRef.current.contains(event.target)) {
         closeModal();
       }
     };
@@ -43,13 +44,12 @@ function Input({
   function onFocus(): void {
     setLastActivInput(lastActiv);
   }
-  function changeShowSelectCoins() {
+  function changeShowSelectCoins(): void {
     setSelectCoins((prev) => !prev);
   }
-  function closeModal() {
+  function closeModal(): void {
     setSelectCoins(false);
   }
-
   return (
     <div className={style.ExchangePageInput}>
       <div className={style.ExchangePageInputBtnInput}>
@@ -59,36 +59,19 @@ function Input({
           onChange={changeInput}
           onFocus={onFocus}
         ></input>
-        <div
-          onClick={changeShowSelectCoins}
-          className={style.ExchangePageInputBtn}
-        >
+        <div onClick={changeShowSelectCoins} className={style.ExchangePageInputBtn}>
           {buttonContent?.ticker.length < 7 ? (
             <div className={style.ExchangePageInputBtnImage}>
-              <img
-                className={style.ExchangePageInputBtnImg}
-                src={buttonContent?.image}
-              ></img>
-              <span className={style.ExchangePageInputCoinTicker}>
-                {buttonContent?.ticker}
-              </span>
+              <img className={style.ExchangePageInputBtnImg} src={buttonContent?.image}></img>
+              <span className={style.ExchangePageInputCoinTicker}>{buttonContent?.ticker}</span>
             </div>
           ) : (
             <div className={style.ExchangePageInputBtnImageLongs}>
-              <img
-                className={style.ExchangePageInputBtnImg}
-                src={buttonContent?.image}
-              ></img>
-              <span className={style.ExchangePageInputCoinTicker}>
-                {buttonContent?.ticker}
-              </span>
+              <img className={style.ExchangePageInputBtnImg} src={buttonContent?.image}></img>
+              <span className={style.ExchangePageInputCoinTicker}>{buttonContent?.ticker}</span>
             </div>
           )}
-          <img
-            className={style.ExchangePageInputBtnArrow}
-            src="Vector.svg"
-            alt="arrow"
-          ></img>
+          <img className={style.ExchangePageInputBtnArrow} src="Vector.svg" alt="arrow"></img>
         </div>
       </div>
       {showSelectCoins && (
@@ -111,9 +94,7 @@ function Input({
             {searchValue
               ? allAvailableCoins
                   .filter((el) => {
-                    return el.name
-                      .toLowerCase()
-                      .includes(searchValue.toLowerCase());
+                    return el.name.toLowerCase().includes(searchValue.toLowerCase());
                   })
                   .map((coin: TypeCoin) => (
                     <li
@@ -127,13 +108,9 @@ function Input({
                       <div>
                         <img src={coin.image}></img>
                       </div>
-                      <div ref={modalRef}>
-                        <span className={style.ExchangePageInputCoinTicker}>
-                          {coin.ticker}
-                        </span>
-                        <span className={style.ExchangePageInputCoinName}>
-                          {coin.name}
-                        </span>
+                      <div>
+                        <span className={style.ExchangePageInputCoinTicker}>{coin.ticker}</span>
+                        <span className={style.ExchangePageInputCoinName}>{coin.name}</span>
                       </div>
                     </li>
                   ))
@@ -150,12 +127,8 @@ function Input({
                       <img src={coin.image}></img>
                     </div>
                     <div>
-                      <span className={style.ExchangePageInputCoinTicker}>
-                        {coin.ticker}
-                      </span>
-                      <span className={style.ExchangePageInputCoinName}>
-                        {coin.name}
-                      </span>
+                      <span className={style.ExchangePageInputCoinTicker}>{coin.ticker}</span>
+                      <span className={style.ExchangePageInputCoinName}>{coin.name}</span>
                     </div>
                   </li>
                 ))}

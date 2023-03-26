@@ -112,7 +112,7 @@
             margin: 20px 0px 20px 0px;
             transform: rotate(90deg);
         }
-        &Error {
+        &Error,&ErrorMin  {
             justify-content: center;
         }
     }
@@ -126,8 +126,15 @@
         &BtnExchange {
             width: 326px;
         }
-        &Error {
+        &Error,&ErrorMin {
             justify-content: center;
         }
     }
 }
+@media (max-width: 990px) {
+    .ExchangePage {
+        &Error {
+            padding-right:  0px;
+        }
+           }
+    }
