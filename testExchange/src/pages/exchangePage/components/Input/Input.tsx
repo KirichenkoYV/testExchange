@@ -49,7 +49,6 @@ function Input({
   function closeModal() {
     setSelectCoins(false);
   }
-
   return (
     <div className={style.ExchangePageInput}>
       <div className={style.ExchangePageInputBtnInput}>
@@ -127,7 +126,7 @@ function Input({
                       <div>
                         <img src={coin.image}></img>
                       </div>
-                      <div ref={modalRef}>
+                      <div>
                         <span className={style.ExchangePageInputCoinTicker}>
                           {coin.ticker}
                         </span>

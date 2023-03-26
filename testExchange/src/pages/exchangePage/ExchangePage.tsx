@@ -29,14 +29,13 @@ function ExchangePage() {
 
   const [contentLiLeft, setContentLiLeft] = useState<string>("btc");
   const [leftInput, setLeftInput] = useState<string>(minAmout || resExchange);
-  const [buttonContentLeft, setButtonContentLeft] = useState(
+  const [buttonContentLeft, setButtonContentLeft] = useState<TypeCoin>(
     allAvailableCoins[0]
   );
 
-  const [buttonContentRight, setButtonContentRight] = useState(
+  const [buttonContentRight, setButtonContentRight] = useState<TypeCoin>(
     allAvailableCoins[1]
   );
-
   const [contentLiRight, setContentLiRight] = useState<string>("eth");
   const [rigthInput, setRightInput] = useState<string>(resExchange);
 
@@ -85,6 +84,7 @@ function ExchangePage() {
       }
       if (error) {
         setRightInput("-");
+        setLeftInput("-");
         setShowError(true);
       }
     }
@@ -159,9 +159,9 @@ function ExchangePage() {
         ) : (
           <div className={style.ExchangePageError} />
         )}
-        {showError ? (
+        {showError && !error ? (
           <div className={style.ExchangePageErrorMin}>
-            Enter amounts above <span> {minAmout}</span>
+            Enter amounts above<span>{minAmout}</span>
           </div>
         ) : (
           <div className={style.ExchangePageError} />
